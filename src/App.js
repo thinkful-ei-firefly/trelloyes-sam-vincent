@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import List from './components/list/List';
+import './app.css';
 
-function App() {
+function App({store:{lists, allCards}}) {
+
+  const createList = list => {
+    const cardList = [];
+    list.cardIds.forEach(id => {
+      if (allCards[id]) {
+        cardList.push(allCards[id]);
+      }
+    });
+    return <List key={list.id} header={list.header} cards={cardList} />;
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <h1>Trelloyes!</h1>
       </header>
+      <div className="App-list">
+        {lists.map(createList)}
+      </div>
     </div>
   );
 }
 
 export default App;
+
+//app store -> list (header, list of cardsinfo) -> Card (title, content)
