@@ -36,17 +36,15 @@ class App extends React.Component {
     const newCard = newRandomCard();
     const cardObj = {};
     cardObj[newCard.id] = newCard;
-    const newCards = Object.assign(this.state.cards, cardObj)
-    console.log(this.state.cards)
-    console.log(newCards)
     const newLists = this.state.lists.map(list => 
       { if (list.id === listId) {
          return { ...list, cardIds: [...list.cardIds, newCard.id] }; 
         } return list; 
       })
-    // this.setState({
-    //   lists: newLists
-    // })
+    this.setState({
+      lists: newLists,
+      cards: Object.assign(this.state.cards, cardObj)
+    })
   }
 
 
